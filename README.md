@@ -3,7 +3,6 @@
 Ever wondered *“what haircut suits my face shape?”* Let AI answer that for you.  
 This project combines **computer vision**, **machine learning**, and **a touch of style** to recommend the perfect haircut — all you need is your face!
 
-!-- Replace with actual path if available -->
 ---
 ## 🚀 Features
 
