@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>💇 Haircut Recommender</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-10">
+        <div class="max-w-6xl w-full bg-gray-900 rounded-2xl shadow-2xl p-8">
+            <h1 class="text-4xl font-bold text-center mb-8 text-pink-400">💇 Haircut Recommender</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- LEFT: Upload Section -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-pink-500">
+                    <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        <label class="block text-lg font-semibold mb-2">📤 Upload Your Face Image:</label>
+                        <input type="file" name="image" accept="image/*" required
+                               class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg border border-gray-600">
+                        <button type="submit"
+                            class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition">
+                            Submit Photo
+                        </button>
+                    </form>
+
+                    <hr class="my-6 border-gray-600">
+
+                    <div class="text-center">
+                        <a href="/capture"
+                           class="inline-block w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition">
+                            🎥 Use Webcam
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Result Section -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-indigo-500">
+                    {% if shape %}
+                        <h2 class="text-2xl font-bold text-green-400 mb-4">✅ Face Shape Detected: {{ shape }}</h2>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-300">💡 Recommended Hairstyles:</h3>
+                        <ul class="list-disc list-inside text-white space-y-1">
+                            {% for style in styles %}
+                                <li>{{ style }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% if image_path %}
+                           <div class="mt-6">
+                               <h3 class="text-lg font-semibold text-green-400 mb-2">🖼 Result Image:</h3>
+                               <img src="{{ image_path }}" width="400" class="rounded-lg border-2 border-green-500 shadow-lg mx-auto">
+                           </div>
+                        {% endif %}
+                    {% else %}
+                        <h2 class="text-xl text-gray-400">Upload or capture a photo to get haircut suggestions.</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-gray-400 text-sm">
+            <hr class="border-gray-700 my-6 w-3/4 mx-auto">
+            <p>Made with 💻 by <span class="text-white font-semibold">Bimal Reji Abraham</span></p>
+            <div class="mt-2 flex justify-center space-x-4">
+                <!-- GitHub -->
+                <a href="https://github.com/Bimal-reji" target="_blank"
+                   class="hover:text-white transition duration-200">
+                    <svg class="w-6 h-6 inline" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.92.58.1.79-.25.79-.55 
+                            0-.27-.01-1.17-.02-2.13-3.2.7-3.87-1.37-3.87-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 
+                            1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.74 1.26 3.41.96.1-.75.41-1.26.74-1.55-2.55-.29-5.24-1.28-5.24-5.69 
+                            0-1.26.45-2.3 1.2-3.11-.12-.3-.52-1.53.12-3.19 0 0 .97-.31 3.18 1.2a11.1 11.1 0 0 1 5.8 0c2.2-1.51 
+                            3.18-1.2 3.18-1.2.65 1.66.25 2.89.13 3.19.75.81 1.2 1.85 1.2 3.11 0 4.42-2.7 5.39-5.27 5.67.42.36.79 
+                            1.08.79 2.18 0 1.58-.01 2.85-.01 3.24 0 .3.2.65.8.54C20.7 21.39 24 17.08 24 12c0-6.27-5.23-11.5-12-11.5z" />
+                    </svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/bimal-reji-abraham" target="_blank"
+                   class="hover:text-white transition duration-200">
+                    <svg class="w-6 h-6 inline" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.5 
+                            20h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75S5.03 4.22 6 4.22s1.75.78 1.75 1.75S6.97 
+                            7.72 6 7.72zm13.5 12.28h-3v-5.5c0-1.38-.03-3.16-1.92-3.16-1.92 
+                            0-2.22 1.5-2.22 3.05v5.61h-3v-11h2.88v1.5h.04c.4-.76 
+                            1.38-1.57 2.84-1.57 3.03 0 3.59 1.99 3.59 4.58v6.49z" />
+                    </svg>
+                </a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
